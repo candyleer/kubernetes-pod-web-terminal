@@ -48,7 +48,7 @@
     });
     console.log('init...');
     var sock = new window.WebSocket(
-        'ws://' + location.host + '/terminal?namespace=${namespace}&podName=${podName}');
+        'ws://' + location.host + '/terminal');
     sock.reconnectAttempts = 3;
     var terminal = document.getElementById('terminal');
     sock.onopen = function () {

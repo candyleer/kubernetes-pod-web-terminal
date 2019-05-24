@@ -113,8 +113,10 @@ public class CommandWebSocketHandler extends TextWebSocketHandler implements Ini
     }
 
     private ExecWatch getExecWatch(WebSocketSession session, Integer cols, Integer rows) {
-        String namespace = getParameter(session, "namespace");
-        String podName = getParameter(session, "podName");
+//        String namespace = getParameter(session, "namespace");
+        String namespace = "default";
+        String podName = "busybox";
+//        String podName = getParameter(session, "podName");
         PodResource<Pod, DoneablePod> podResource = kubernetesClient.pods().inNamespace(namespace).withName(podName);
         //输入命令到容器中;
 
@@ -144,7 +146,7 @@ public class CommandWebSocketHandler extends TextWebSocketHandler implements Ini
                     }
                 })
                 .withTTY()
-                .exec("env", "TERM%3Dxterm", "COLUMNS%3D" + cols, "LINES%3D" + rows, "/bin/bash", "-i");
+                .exec("env", "TERM=xterm", "COLUMNS=" + cols, "LINES=" + rows, "/bin/sh", "-i");
     }
 
     @Override
